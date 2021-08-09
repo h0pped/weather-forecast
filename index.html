@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.lordicon.com/libs/frhvbuzj/lord-icon-2.0.2.js"></script>
+
+    <title>Weather app</title>
+</head>
+<body>
+    <div class="container">
+        <div class="left-container shadow">
+            <div class="today-container plate">
+                <h1>Today</h1>
+                <img class="now-image" src="./images/sun.png" alt="sun.png">
+                <div class="today-description">
+                <p class="now-temperature">20<sup class="degree">°</sup>C</p>
+                <h2>Rivne</h2>
+                <h3 class="gray-text">Ukraine</h3>
+                <h4>Monday, <span class="gray-text">18.26</span></h4>
+            </div>
+            <hr>
+            <div class="info-container">
+                <div class="clouds">
+                    <img src="./images/cloud.png" alt="cloud">
+                    <p>Clouds: 20%</p>
+                </div>
+                <div class="rain">
+                    <img src="./images/rain.png" alt="rain">
+                    <p>Chance of rain: 5%</p>
+                </div>
+            </div>
+            </div>
+        </div>
+        <div class="right-container">
+            <div class="search-container plate">
+                <input type="text" name="place" id="placeInput" class="search-input" placeholder="Search for places...">
+                <lord-icon
+                 src="https://cdn.lordicon.com/msoeawqm.json"
+                 trigger="click"
+                 colors="primary:#000000,secondary:#08a88a"
+                </lord-icon>
+            </div>
+            <div class="description-container plate shadow">
+                <h2 class="title">Week</h2>
+                <div class="weekly-forecast-container">
+                    <div class="card shadow">
+                        <p class="weekday">Tue</p>
+                        <img src="./images/sun.png" alt="sun.png">
+                        <p>21<sup class="degree">°</sup> <span class="gray-text">12<sup class="degree">°</sup></span></p>
+                    </div>
+                    <div class="card shadow">
+                        <p class="weekday">Wed</p>
+                        <img src="./images/cloud.png" alt="sun.png">
+                        <p>17<sup class="degree">°</sup> <span class="gray-text">10<sup class="degree">°</sup></span></p>
+                    </div>
+                    <div class="card shadow">
+                        <p class="weekday">Thu</p>
+                        <img src="./images/rain.png" alt="sun.png">
+                        <p>15<sup class="degree">°</sup> <span class="gray-text">9<sup class="degree">°</sup></span></p>
+                    </div>
+                    <div class="card shadow">
+                        <p class="weekday">Fri</p>
+                        <img src="./images/cloudy.png" alt="sun.png">
+                        <p>17<sup class="degree">°</sup> <span class="gray-text">12<sup class="degree">°</sup></span></p>
+                    </div>
+                    <div class="card shadow">
+                        <p class="weekday">Sat</p>
+                        <img src="./images/thunderstorm.png" alt="sun.png">
+                        <p>12<sup class="degree">°</sup> <span class="gray-text">8<sup class="degree">°</sup></span></p>
+                    </div>
+                    <div class="card shadow">
+                        <p class="weekday">Sun</p>
+                        <img src="./images/cloudy.png" alt="sun.png">
+                        <p>15<sup class="degree">°</sup> <span class="gray-text">10<sup class="degree">°</sup></span></p>
+                    </div>
+                </div>
+                <h2 class="title">Today's Highlights</h2>
+                <div class="wrapper">
+
+                    <div class="box-card shadow uv">
+                        <p class="card-title gray-text">UV index</p>
+                        <h1 class="info-text">2</h1>
+                        <div class="bar-container">
+                            <div class="indicators gray-text">
+                                <p>1</p>
+                                <p>5</p>
+                                <p>10</p>
+                            </div>
+                            <div class="bar uv-bar">
+                                <div class="filled-bar"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-card shadow wind">
+                        <p class="card-title gray-text">Wind Status</p>
+                        <h1 class="info-text">3</h1>
+                        <p class="subinfo-text">km/h</p>
+                        <p class="description-text">Light Breeze</p>
+                    </div>
+                    <div class="box-card shadow sun">
+                        <p class="card-title gray-text">Sunrise & Sunset</p>
+                        <div class="sunrise">
+                            <img src="./images/sunrise.png" alt="sunrise">
+                            <p>06:44</p>
+                        </div>
+                        <div class="sunset">
+                            <img src="./images/sunset.png" alt="sunset">
+                            <p>21:50</p>
+                        </div>
+                    </div>
+                    <div class="box-card shadow humidity">
+                        <p class="card-title gray-text">Humidity</p>
+                        <h1 class="info-text">80<sup>%</sup></h1>
+                        <div class="bar-container">
+                            <div class="indicators gray-text">
+                                <p>0</p>
+                                <p>100</p>
+                            </div>
+                            <div class="bar humidity-bar">
+                                <div class="filled-bar"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-card shadow visibility">
+                        <p class="card-title gray-text">Visibility</p>
+                        <h1 class="info-text">10</h1>
+                        <p class="subinfo-text">km</p>
+                        <p class="description-text">Good visibility</p>
+                    </div>
+                    <div class="box-card shadow minmax">
+                        <p class="card-title gray-text temp-title">Min & Max temperature</p>
+                        <div class="max">
+                            <img src="./images/max-temperature.png" alt="max-temperature.png">
+                            <p>22<sup>°</sup></p>
+                        </div>
+                        <div class="min">
+                            <img src="./images/min-temperature.png" alt="min-temperature.png">
+                            <p>16<sup>°</sup></p>
+                        </div>
+                </div>
+                <div class="box-card shadow map gray-text">
+                    <h1>Map</h1>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

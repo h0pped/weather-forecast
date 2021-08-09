@@ -1,0 +1,331 @@
+:root{
+    --main-gray: #BDBDBD;
+    --shadow: 0px 5px 10px 0px rgba(41,41,41,0.3);
+    --radius: 40px;
+}
+html{
+    box-sizing: border-box;
+}
+*{
+    box-sizing: inherit;
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family: 'Roboto', sans-serif;
+    background: #F3F3F3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container{
+    margin-top: 2rem;
+    width: 1250px;
+    display: flex;
+    justify-content: space-between;
+}
+.left-container{
+    min-height: 100%;
+    width: 25%;
+    background: white;
+}
+.right-container{
+    min-height: 100%;
+    width: 72.5%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+}
+.search-container{
+    width:100%;
+    height: 2.2rem;
+    display: flex;
+    position:relative;
+    margin-bottom: 1.2rem;
+}
+.search-input{
+    width: 100%;
+    max-height: 100%;
+    padding:1rem;
+    padding-left: 45px;
+    font-size: 16px;
+    border: 0;
+    box-shadow: var(--shadow);
+    border-radius: var(--radius);
+    position:relative;
+}
+.search-input:focus{
+    outline: none;
+}
+.search-input::placeholder{
+    color: var(--main-gray)
+}
+lord-icon{
+    position:absolute;
+    top:50%;
+    left:10px;
+    transform:translateY(-50%);
+    width:30px;
+    height:30px;
+    cursor: pointer;
+}
+
+.today-container h1{
+    text-align: center;
+    margin-top: 1rem;
+}
+.today-container h2{
+    margin-top: 0.5rem;
+    font-size: 3rem;
+    font-weight:300;
+    line-height: 3.1rem;
+}
+.today-container h3{
+    font-weight: 300;
+}
+.today-container h4{
+    font-weight: 300;
+}
+.today-container hr{
+    margin:1rem 1rem;
+}
+.today-container .now-image{
+    display: block;
+    width:180px;
+    height: 180px;
+    margin: 2rem auto;
+}
+.today-container .now-temperature{
+    font-size: 5rem;
+    font-weight: 200;
+}
+.info-container{
+    display: flex;
+    flex-direction: column;
+    margin-left: 1rem;
+
+}
+.info-container p{
+    margin-left: 0.5rem;
+}
+
+.clouds{
+    margin-bottom: 0.5rem;
+}
+.clouds,
+.rain{
+    display: flex;
+    align-items: center;
+}
+.clouds img,
+.rain img{
+    height: 45px;
+    width: 45px;
+}
+
+.description-container{
+    width: 100%;
+    background: white;
+    padding-bottom: 2rem;
+    height: 100%;
+}
+.weekly-forecast-container{
+    display: flex;
+    justify-content: space-around;
+    margin:1rem 2rem;
+}
+.title{
+    font-size: 1.3rem;
+    margin:1.5rem 2rem 0;
+    line-height: 1.7rem;
+}
+.card img{
+    width:72px;
+    height: 72px;
+    margin:1rem 0rem;
+}
+.card p{
+    text-align: center;
+
+}
+.card p.weekday{
+    font-weight: 600;
+}
+.today-description{
+    margin-left: 1rem;
+}
+.shadow{
+    box-shadow: var(--shadow);
+    border-radius: var(--radius);
+}
+.gray-text{
+    color:var(--main-gray)
+}
+.card{
+    border-radius: 15px;
+    padding:0.5rem 1.3rem;
+}
+.highlights-container{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 0rem 2rem;
+}
+.wrapper{
+    display: grid;
+    grid-template-columns: repeat(3,0.8fr) 0.9fr 0.9fr;
+    grid-column-gap: 1rem;
+    grid-row-gap: 0.5rem;
+    padding:1rem 2rem 0;
+    margin: 0rem 1rem;
+    grid-template-areas:
+    "uv wind sun map map"
+    "humidity visibility temp map map"
+    
+}
+.box-card{
+    border-radius: 20px;
+    min-height: 160px;
+}
+.box-card .card-title{
+    padding:0.5rem 0.5rem 0;
+    font-size: 0.7rem;
+    font-weight: 600;
+}
+.box-card .info-text{
+    text-align: center;
+    font-size: 3rem;
+    margin:1rem 0rem 0rem;
+    line-height: 3rem;
+}
+.box-card .subinfo-text{
+    font-weight: 300;
+    text-align: center;
+}
+.box-card .description-text{
+    text-align: center;
+    margin-top:1rem;
+    font-weight: 300;
+}
+.box-card .bar-container{
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    padding:0rem 0.5rem;
+    margin-top: 1rem;
+
+}
+.box-card .indicators{
+    display: flex;
+    justify-content: space-between;
+}
+.box-card .bar{
+    width: 100%;
+    height: 12px;
+    border-radius: 10px;
+    margin-top: 0.2rem;
+    background: #C4C4C4;
+    position: relative;
+}
+.box-card .filled-bar{
+    position: absolute;
+    border-radius: 10px;
+    height: 100%;
+}
+.box-card .uv-bar .filled-bar{
+    width: 20%;
+    background: #BC00DB;
+}
+.sunrise,
+.sunset{
+    display: flex;
+    align-items: center;
+}
+.sunrise{
+    margin:1rem 0rem 0.5rem 0.7rem;
+}
+.sunset{
+    margin:0rem 0.7rem;
+
+}
+.sunrise img,
+.sunset img{
+    width: 40px;
+    height:40px;
+}
+.sunrise p,
+.sunset p{
+    margin-left: 1rem;
+    font-size: 1.3rem;
+    font-weight: 300;
+}
+.humidity .info-text sup{
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+.humidity .info-text sup{
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+.humidity .humidity-bar .filled-bar{
+    width: 80%;
+    background: #5A88FF;
+}
+.temp-title{
+    margin-bottom:1rem;
+}
+.min,
+.max{
+    display: flex;
+    align-items: center;
+}
+.min{
+    margin:1rem 0rem 0.5rem 0.7rem;
+}
+.max{
+    margin:0rem 0.7rem;
+
+}
+.min img,
+.max img{
+    width: 40px;
+    height:40px;
+}
+.min p,
+.max p{
+    margin-left: 0.2rem;
+    font-size: 1.3rem;
+    font-weight: 300;
+}
+.uv{
+    grid-area: uv;
+}
+.wind{
+    grid-area: wind;
+}
+.sun{
+    grid-area: sun;
+}
+.humidity{
+    grid-area: humidity;
+}
+.visibility{
+    grid-area: visibility;
+}
+.temp{
+    grid-area: temp;
+} 
+.map{
+    grid-area: map;
+    position: relative;
+}
+.map h1{
+    text-align: center;
+    position: absolute;
+    top:50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+}
