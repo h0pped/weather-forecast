@@ -11,6 +11,9 @@ html{
     margin:0;
     padding:0;
 }
+img:not([src]) {
+    visibility: hidden;
+ }
 
 body{
     font-family: 'Roboto', sans-serif;

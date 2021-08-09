@@ -4,22 +4,48 @@ let currentCountryEl = document.querySelector("#current-country")
 let currentDateEl = document.querySelector("#current-date")
 let currentCloudsEl = document.querySelector("#current-clouds")
 let currentImageEl = document.querySelector("#current-img")
+let daysCards = document.querySelectorAll(".card")
+let uvIndexEl = document.querySelector("#uv-index")
+let uvIndexBar = document.querySelector(".uv-bar .filled-bar")
+let windEl = document.querySelector("#wind-speed")
+let windDescription = document.querySelector("#wind-description")
 // let currentRainChanceEl = document.querySelector("#current-rain-chance")
 let city,country
 let weatherResponse
 let timestamp
-
+console.log(daysCards);
 const DAYS = {
+    0: "Sunday",
     1: "Monday",
     2: "Tuesday",
     3: "Wednesday",
     4: "Thursday",
     5: "Friday",
-    6: "Saturday",
-    7: "Sunday",
+    6: "Saturday"
 }
 const WEATHERPATHS = {
-    "Clouds": "cloud"
+    "Clouds": "cloud",
+    "Thunderstorm": "thunderstorm",
+    "Drizzle": "rain",
+    "Rain": "rain",
+    "Snow": "snow",
+    "Mist": "haze",
+    "Smoke": "haze",
+    "Dust": "haze",
+    "Fog": "haze",
+    "Sand": "haze",
+    "Dust": "haze",
+    "Ash": "haze",
+    "Squall": "haze",
+    "Tornado": "hurricane",
+    "Clear": "sun"
+}
+const WINDSPEED = {
+    0: "Windless",
+    5: "Little Breeze",
+    10: "Breeze",
+    20: "Windy",
+    30: "Strong wind"
 }
 function getPosition(lat,long){
     fetch(`http://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${long}&limit=1&appid=e6d804f5e9320c6522624536e3ac2b78`).then(res=>res.json())
@@ -49,16 +75,36 @@ function updateUI(){
     let current = weatherResponse.current
     let timestamp = weatherResponse.current.dt
     currentImageEl.src=`./images/${WEATHERPATHS[current.weather[0].main]}.png`
-    currentTemperatureEl.innerHTML = `${(current.temp-273.15).toFixed(1)}<sup class="degree">°</sup>C`
+    currentTemperatureEl.innerHTML = `${getCelsius(current.temp)}<sup class="degree">°</sup>C`
     currentCityEl.innerHTML = city
     currentCountryEl.innerHTML = country
-    let date = new Date(timestamp)
+    let date = new Date(timestamp*1000)
     currentDateEl.innerHTML = `${DAYS[date.getDay().toString()]}, <span class="gray-text">${date.getHours()}:${date.getMinutes()}</span>`
     currentCloudsEl.innerHTML = `Clouds: ${current.clouds}%`
-    
+
+    for(let i = 0;i<daysCards.length;i++){
+        let day_forecast = weatherResponse.daily[i+1]
+        daysCards[i].querySelector('p.weekday').innerHTML = getDay(day_forecast.dt)
+        daysCards[i].querySelector('img').src = `./images/${WEATHERPATHS[day_forecast.weather[0].main]}.png`
+        daysCards[i].querySelector('p.degree-description').innerHTML = `${getCelsius(day_forecast.temp.max)}<sup class="degree">°</sup> <span class="gray-text">${getCelsius(day_forecast.temp.min)}<sup class="degree">°</sup></span>`
+    }
+    uvIndexEl.innerHTML = current.uvi
+    uvIndexBar.style.width = current.uvi*10
+    windEl.innerHTML = current.wind_speed.toFixed(0)
+    windDescription.innerHTML = getWindDescription(current.wind_speed)
 }
 
-
+const getDay = (timestamp)=> DAYS[new Date(timestamp*1000).getDay()]
+const getCelsius = (calvins)=> (calvins-273.15).toFixed(1)
+const getWindDescription = (speed)=>{
+    let keys = Object.keys(WINDSPEED)
+    for(let i = 0;i<keys.length;i++){
+        if(speed<=+keys[i]){
+            return WINDSPEED[keys[i]]
+        }
+    }
+    return "Dangerous Wind"
+}
 // fetch("https://api.openweathermap.org/data/2.5/onecall?lat=50.619900&lon=26.251617&exclude=hourly&appid=e6d804f5e9320c6522624536e3ac2b78").then(res=>res.json())
 // .then(data=>console.log(data))
 
