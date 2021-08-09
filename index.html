@@ -17,23 +17,23 @@
         <div class="left-container shadow">
             <div class="today-container plate">
                 <h1>Today</h1>
-                <img class="now-image" src="./images/sun.png" alt="sun.png">
+                <img id="current-img" class="now-image">
                 <div class="today-description">
-                <p class="now-temperature">20<sup class="degree">°</sup>C</p>
-                <h2>Rivne</h2>
-                <h3 class="gray-text">Ukraine</h3>
-                <h4>Monday, <span class="gray-text">18.26</span></h4>
+                <p class="now-temperature" id="current-temperature"></p>
+                <h2 id="current-city"></h2>
+                <h3 id="current-country" class="gray-text"></h3>
+                <h4 id="current-date"></h4>
             </div>
             <hr>
             <div class="info-container">
                 <div class="clouds">
                     <img src="./images/cloud.png" alt="cloud">
-                    <p>Clouds: 20%</p>
+                    <p id="current-clouds"></p>
                 </div>
-                <div class="rain">
+                <!-- <div class="rain">
                     <img src="./images/rain.png" alt="rain">
-                    <p>Chance of rain: 5%</p>
-                </div>
+                    <p id="current-rain-chance">Chance of rain: 5%</p>
+                </div> -->
             </div>
             </div>
         </div>
