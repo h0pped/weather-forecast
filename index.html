@@ -9,7 +9,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.lordicon.com/libs/frhvbuzj/lord-icon-2.0.2.js"></script>
-
     <title>Weather app</title>
 </head>
 <body>
@@ -26,8 +25,13 @@
             </div>
             <hr>
             <div class="info-container">
+                <div class="info">
+                    <img src="./images/circle.png">
+                    <p id="main-info"></p>
+                </div>
                 <div class="clouds">
-                    <img src="./images/cloud.png" alt="cloud">
+                    <img src="./images/circle.png">
+
                     <p id="current-clouds"></p>
                 </div>
                 <!-- <div class="rain">
@@ -39,13 +43,20 @@
         </div>
         <div class="right-container">
             <div class="search-container plate">
-                <input type="text" name="place" id="placeInput" class="search-input" placeholder="Search for places...">
-                <lord-icon
-                 src="https://cdn.lordicon.com/msoeawqm.json"
-                 trigger="click"
-                 colors="primary:#000000,secondary:#08a88a"
+                <div class="search">
+                    <input type="text" name="place" id="placeInput" class="search-input" placeholder="Search for places...">
+                    <lord-icon
+                    src="https://cdn.lordicon.com/msoeawqm.json"
+                    trigger="click"
+                    colors="primary:#000000,secondary:#08a88a"
                 </lord-icon>
             </div>
+                 <div class="search-results-container plate shadow">
+                     <ul class="search-list">
+                     </ul>
+                 </div>
+            </div>
+
             <div class="description-container plate shadow">
                 <h2 class="title">Week</h2>
                 <div class="weekly-forecast-container">
@@ -116,7 +127,7 @@
                     </div>
                     <div class="box-card shadow humidity">
                         <p class="card-title gray-text">Humidity</p>
-                        <h1 class="info-text">80<sup>%</sup></h1>
+                        <h1 id="humidity" class="info-text">80<sup>%</sup></h1>
                         <div class="bar-container">
                             <div class="indicators gray-text">
                                 <p>0</p>
@@ -129,19 +140,19 @@
                     </div>
                     <div class="box-card shadow visibility">
                         <p class="card-title gray-text">Visibility</p>
-                        <h1 class="info-text">10</h1>
+                        <h1 id="visibility" class="info-text"></h1>
                         <p class="subinfo-text">km</p>
-                        <p class="description-text">Good visibility</p>
+                        <p id="visibility-description" class="description-text"></p>
                     </div>
                     <div class="box-card shadow minmax">
                         <p class="card-title gray-text temp-title">Min & Max temperature</p>
                         <div class="max">
                             <img src="./images/max-temperature.png" alt="max-temperature.png">
-                            <p>22<sup>°</sup></p>
+                            <p id="max">22<sup>°</sup></p>
                         </div>
                         <div class="min">
                             <img src="./images/min-temperature.png" alt="min-temperature.png">
-                            <p>16<sup>°</sup></p>
+                            <p id="min">16<sup>°</sup></p>
                         </div>
                 </div>
                 <div class="box-card shadow map gray-text">

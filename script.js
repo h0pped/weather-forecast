@@ -11,11 +11,60 @@ let windEl = document.querySelector("#wind-speed")
 let windDescription = document.querySelector("#wind-description")
 let sunriseEl = document.querySelector("#sunrise")
 let sunsetEl = document.querySelector("#sunset")
+let humidityEl = document.querySelector("#humidity")
+let humidityIndexBar = document.querySelector(".humidity-bar .filled-bar")
+let visibilityEl = document.querySelector("#visibility")
+let visibilityDescriptionEl = document.querySelector("#visibility-description")
+let maxTempEl = document.querySelector("#max")
+let minTempEl = document.querySelector("#min")
+let mainInfoEl = document.querySelector("#main-info")
+let placeInputEl = document.querySelector("#placeInput")
+let searchResultsEl = document.querySelector(".search-results-container")
+let searchListEl = document.querySelector(".search-list")
 // let currentRainChanceEl = document.querySelector("#current-rain-chance")
 let city,country
 let weatherResponse
 let timestamp
-console.log(daysCards);
+
+// "https://api.mapbox.com/geocoding/v5/mapbox.places/Washington.json?limit=2&access_token=pk.eyJ1IjoiYXdyaWwiLCJhIjoiY2tyOTRnaHkwMGl2YjJwcDhoYmhkdWNxaiJ9.XlGjFeM6ofVunfyStLiFmQ"
+
+
+let searchTimeout
+placeInputEl.addEventListener("input",()=>{
+    clearTimeout(searchTimeout)
+    if(!placeInputEl.value){
+        searchResultsEl.style.display = "none"
+    }
+    else{
+        searchTimeout = setTimeout(() => {
+            searchPlaces(placeInputEl.value)
+        }, 500);
+    }
+})
+
+function searchPlaces(place){
+    fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${place}.json?limit=5&access_token=pk.eyJ1IjoiYXdyaWwiLCJhIjoiY2tyOTRnaHkwMGl2YjJwcDhoYmhkdWNxaiJ9.XlGjFeM6ofVunfyStLiFmQ`).then(res=>res.json())
+    .then(data=>{
+        searchResultsEl.style.display = "block"
+        searchListEl.innerHTML = ""
+            data.features.forEach((el)=>{
+                let place = document.createElement("li")
+                let placename = document.createElement("p")
+                placename.innerHTML = el.place_name
+                place.appendChild(placename)
+                searchListEl.appendChild(place)
+            })
+    }).catch(err=>{
+        searchResultsEl.style.display = "block"
+        searchListEl.innerHTML = ""
+        let place = document.createElement("li")
+        let notFound = document.createElement("p")
+        place.appendChild(notFound)
+        notFound.innerHTML = "No places were found!"
+        searchListEl.appendChild(notFound)
+    })
+}
+
 const DAYS = {
     0: "Sunday",
     1: "Monday",
@@ -48,6 +97,12 @@ const WINDSPEED = {
     10: "Breeze",
     20: "Windy",
     30: "Strong wind"
+}
+const VISIBILITY = {
+    1:"Dangerous visibility",
+    2: "Low visibility",
+    5:"Normal Visibility",
+    10: "Good visibility"
 }
 function getPosition(lat,long){
     fetch(`http://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${long}&limit=1&appid=e6d804f5e9320c6522624536e3ac2b78`).then(res=>res.json())
@@ -96,6 +151,16 @@ function updateUI(){
 
     sunsetEl.innerHTML = getTime(current.sunset,weatherResponse.timezone_offset)
     sunriseEl.innerHTML = getTime(current.sunrise,weatherResponse.timezone_offset)
+
+    humidityEl.innerHTML = current.humidity
+    humidityIndexBar.style.width = current.humidity.toFixed(0)+"%"
+
+    visibilityEl.innerHTML = (current.visibility/1000).toFixed(0)
+    visibilityDescriptionEl.innerHTML = getVisibilityDescription((current.visibility/1000).toFixed(1))
+
+    maxTempEl.innerHTML = `${getCelsius(weatherResponse.daily[0].temp.max)}<sup>°</sup>` 
+    minTempEl.innerHTML = `${getCelsius(weatherResponse.daily[0].temp.min)}<sup>°</sup>` 
+    mainInfoEl.innerHTML = current.weather[0].description.slice(0,1).toUpperCase()+current.weather[0].description.slice(1)
 }
 
 const getDay = (timestamp)=> DAYS[new Date(timestamp*1000).getUTCDay()]
@@ -103,7 +168,16 @@ getTime = (timestamp,offset)=>{
     let date = new Date((timestamp+offset)*1000)
     return `${date.getUTCHours().toString().padStart(2,"0")}:${date.getUTCMinutes().toString().padStart(2,"0")}`
 }
-const getCelsius = (calvins)=> (calvins-273.15).toFixed(1)
+const getCelsius = (calvins)=> (calvins-273.15).toFixed(0)
+const getVisibilityDescription = (visibility)=>{
+    let keys = Object.keys(VISIBILITY)
+    for(let i = 0;i<keys.length;i++){
+        if(visibility<=+keys[i]){
+            return VISIBILITY[keys[i]]
+        }
+    }
+    return "Dangerous Wind"
+}
 const getWindDescription = (speed)=>{
     let keys = Object.keys(WINDSPEED)
     for(let i = 0;i<keys.length;i++){
