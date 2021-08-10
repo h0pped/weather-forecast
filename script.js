@@ -21,13 +21,10 @@ let mainInfoEl = document.querySelector("#main-info")
 let placeInputEl = document.querySelector("#placeInput")
 let searchResultsEl = document.querySelector(".search-results-container")
 let searchListEl = document.querySelector(".search-list")
-// let currentRainChanceEl = document.querySelector("#current-rain-chance")
+
 let city,country
 let weatherResponse
 let timestamp
-
-// "https://api.mapbox.com/geocoding/v5/mapbox.places/Washington.json?limit=2&access_token=pk.eyJ1IjoiYXdyaWwiLCJhIjoiY2tyOTRnaHkwMGl2YjJwcDhoYmhkdWNxaiJ9.XlGjFeM6ofVunfyStLiFmQ"
-
 
 let searchTimeout
 placeInputEl.addEventListener("input",()=>{
@@ -45,12 +42,16 @@ placeInputEl.addEventListener("input",()=>{
 function searchPlaces(place){
     fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${place}.json?limit=5&access_token=pk.eyJ1IjoiYXdyaWwiLCJhIjoiY2tyOTRnaHkwMGl2YjJwcDhoYmhkdWNxaiJ9.XlGjFeM6ofVunfyStLiFmQ`).then(res=>res.json())
     .then(data=>{
+        console.log(data);
         searchResultsEl.style.display = "block"
         searchListEl.innerHTML = ""
             data.features.forEach((el)=>{
                 let place = document.createElement("li")
                 let placename = document.createElement("p")
                 placename.innerHTML = el.place_name
+                let [long,lat] = el.center
+                place.setAttribute("data-lat",lat)
+                place.setAttribute("data-long",long)
                 place.appendChild(placename)
                 searchListEl.appendChild(place)
             })
@@ -61,6 +62,7 @@ function searchPlaces(place){
         let notFound = document.createElement("p")
         place.appendChild(notFound)
         notFound.innerHTML = "No places were found!"
+        notFound.classList.add("disabled")
         searchListEl.appendChild(notFound)
     })
 }
@@ -187,9 +189,12 @@ const getWindDescription = (speed)=>{
     }
     return "Dangerous Wind"
 }
-// fetch("https://api.openweathermap.org/data/2.5/onecall?lat=50.619900&lon=26.251617&exclude=hourly&appid=e6d804f5e9320c6522624536e3ac2b78").then(res=>res.json())
-// .then(data=>console.log(data))
 
-// https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&exclude={part}&appid={API key}
-
-// http://api.openweathermap.org/geo/1.0/reverse?lat=51.5098&lon=-0.1180&limit=5&appid={API key}
+searchListEl.addEventListener("click",(e)=>{
+    const clicked = e.target.closest("li")
+    if(clicked){
+        searchResultsEl.style.display = "none"
+        getPosition(clicked.dataset.lat,clicked.dataset.long)
+    }
+    
+})
