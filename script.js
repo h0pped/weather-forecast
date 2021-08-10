@@ -107,7 +107,7 @@ const VISIBILITY = {
     10: "Good visibility"
 }
 function getPosition(lat,long){
-    fetch(`http://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${long}&limit=1&appid=e6d804f5e9320c6522624536e3ac2b78`).then(res=>res.json())
+    fetch(`https://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${long}&limit=1&appid=e6d804f5e9320c6522624536e3ac2b78`).then(res=>res.json())
     .then(data=>{
         console.log(data);
         country = data[0].country;
