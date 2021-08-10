@@ -9,6 +9,8 @@ let uvIndexEl = document.querySelector("#uv-index")
 let uvIndexBar = document.querySelector(".uv-bar .filled-bar")
 let windEl = document.querySelector("#wind-speed")
 let windDescription = document.querySelector("#wind-description")
+let sunriseEl = document.querySelector("#sunrise")
+let sunsetEl = document.querySelector("#sunset")
 // let currentRainChanceEl = document.querySelector("#current-rain-chance")
 let city,country
 let weatherResponse
@@ -73,28 +75,34 @@ navigator.geolocation.getCurrentPosition((res)=>{
 
 function updateUI(){
     let current = weatherResponse.current
-    let timestamp = weatherResponse.current.dt
+    let timestamp = weatherResponse.current.dt+weatherResponse.timezone_offset
     currentImageEl.src=`./images/${WEATHERPATHS[current.weather[0].main]}.png`
     currentTemperatureEl.innerHTML = `${getCelsius(current.temp)}<sup class="degree">°</sup>C`
     currentCityEl.innerHTML = city
     currentCountryEl.innerHTML = country
     let date = new Date(timestamp*1000)
-    currentDateEl.innerHTML = `${DAYS[date.getDay().toString()]}, <span class="gray-text">${date.getHours()}:${date.getMinutes()}</span>`
+    currentDateEl.innerHTML = `${DAYS[date.getUTCDay().toString()]}, <span class="gray-text">${date.getUTCHours().toString().padStart(2,"0")}:${date.getUTCMinutes().toString().padStart(2,"0")}</span>`
     currentCloudsEl.innerHTML = `Clouds: ${current.clouds}%`
-
     for(let i = 0;i<daysCards.length;i++){
         let day_forecast = weatherResponse.daily[i+1]
         daysCards[i].querySelector('p.weekday').innerHTML = getDay(day_forecast.dt)
         daysCards[i].querySelector('img').src = `./images/${WEATHERPATHS[day_forecast.weather[0].main]}.png`
         daysCards[i].querySelector('p.degree-description').innerHTML = `${getCelsius(day_forecast.temp.max)}<sup class="degree">°</sup> <span class="gray-text">${getCelsius(day_forecast.temp.min)}<sup class="degree">°</sup></span>`
     }
-    uvIndexEl.innerHTML = current.uvi
-    uvIndexBar.style.width = current.uvi*10
+    uvIndexEl.innerHTML = current.uvi.toFixed(0)
+    uvIndexBar.style.width = current.uvi.toFixed(0)*10+"%"
     windEl.innerHTML = current.wind_speed.toFixed(0)
     windDescription.innerHTML = getWindDescription(current.wind_speed)
+
+    sunsetEl.innerHTML = getTime(current.sunset,weatherResponse.timezone_offset)
+    sunriseEl.innerHTML = getTime(current.sunrise,weatherResponse.timezone_offset)
 }
 
-const getDay = (timestamp)=> DAYS[new Date(timestamp*1000).getDay()]
+const getDay = (timestamp)=> DAYS[new Date(timestamp*1000).getUTCDay()]
+getTime = (timestamp,offset)=>{
+    let date = new Date((timestamp+offset)*1000)
+    return `${date.getUTCHours().toString().padStart(2,"0")}:${date.getUTCMinutes().toString().padStart(2,"0")}`
+}
 const getCelsius = (calvins)=> (calvins-273.15).toFixed(1)
 const getWindDescription = (speed)=>{
     let keys = Object.keys(WINDSPEED)
