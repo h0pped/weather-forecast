@@ -18,7 +18,6 @@ img:not([src]) {
 body{
     font-family: 'Roboto', sans-serif;
     background: #F3F3F3;
-    
 }
 
 .container{
@@ -33,7 +32,29 @@ body{
     min-height: 100%;
     width: 25%;
     background: white;
+    position: relative;
 }
+.container:not(.loading) .loader{
+    display: none;
+}
+.container.loading .left-container .loader,
+.container.loading .description-container .loader{
+    position: absolute;
+    top:50%;
+    left:50%;
+    height: 100px;
+    width: 100px;
+    transform: translate(-50%,-50%);
+}
+.container.loading .left-container .today-container,
+.container.loading .description-container .information
+{
+    visibility:hidden
+}
+.container.loading .description-container{
+    position: relative;
+}
+
 .right-container{
     min-height: 100%;
     width: 72.5%;
@@ -151,6 +172,9 @@ lord-icon{
     background: white;
     padding-bottom: 2rem;
     height: 100%;
+}
+.information{
+    width: 100%;
 }
 .weekly-forecast-container{
     display: flex;
@@ -290,7 +314,6 @@ lord-icon{
     font-weight: 500;
 }
 .humidity .humidity-bar .filled-bar{
-    width: 80%;
     background: #5A88FF;
 }
 .temp-title{

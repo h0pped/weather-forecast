@@ -45,6 +45,9 @@ function searchPlaces(place){
         console.log(data);
         searchResultsEl.style.display = "block"
         searchListEl.innerHTML = ""
+        if(data.features.length===0){
+            throw "Not found!"
+        }
             data.features.forEach((el)=>{
                 let place = document.createElement("li")
                 let placename = document.createElement("p")
@@ -163,6 +166,7 @@ function updateUI(){
     maxTempEl.innerHTML = `${getCelsius(weatherResponse.daily[0].temp.max)}<sup>°</sup>` 
     minTempEl.innerHTML = `${getCelsius(weatherResponse.daily[0].temp.min)}<sup>°</sup>` 
     mainInfoEl.innerHTML = current.weather[0].description.slice(0,1).toUpperCase()+current.weather[0].description.slice(1)
+    document.querySelector(".container").classList.remove("loading")
 }
 
 const getDay = (timestamp)=> DAYS[new Date(timestamp*1000).getUTCDay()]
@@ -194,6 +198,7 @@ searchListEl.addEventListener("click",(e)=>{
     const clicked = e.target.closest("li")
     if(clicked){
         searchResultsEl.style.display = "none"
+        document.querySelector(".container").classList.add("loading")
         getPosition(clicked.dataset.lat,clicked.dataset.long)
     }
     

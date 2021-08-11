@@ -12,8 +12,14 @@
     <title>Weather app</title>
 </head>
 <body>
-    <div class="container">
+    <div class="container loading">
         <div class="left-container shadow">
+            <lord-icon class="loader"
+            src="https://cdn.lordicon.com/ymrqtsej.json"
+            trigger="loop"
+            colors="primary:#000000"
+            >
+            </lord-icon>
             <div class="today-container plate">
                 <h1>Today</h1>
                 <img id="current-img" class="now-image">
@@ -42,6 +48,7 @@
             </div>
         </div>
         <div class="right-container">
+            
             <div class="search-container plate">
                 <div class="search">
                     <input type="text" name="place" id="placeInput" class="search-input" placeholder="Search for places...">
@@ -58,6 +65,13 @@
             </div>
 
             <div class="description-container plate shadow">
+                <lord-icon class="loader"
+            src="https://cdn.lordicon.com/ymrqtsej.json"
+            trigger="loop"
+            colors="primary:#000000"
+            >
+            </lord-icon>
+            <div class="information">
                 <h2 class="title">Week</h2>
                 <div class="weekly-forecast-container">
                     <div class="card shadow">
@@ -84,79 +98,80 @@
                         <p class="weekday"></p>
                         <img>
                         <p class="degree-description"></p>
-                    </div>
-                    <div class="card shadow">
-                        <p class="weekday"></p>
-                        <img alt="">
-                        <p class="degree-description"></p>
+                </div>
+                <div class="card shadow">
+                    <p class="weekday"></p>
+                    <img alt="">
+                    <p class="degree-description"></p>
+                </div>
+            </div>
+            <h2 class="title">Today's Highlights</h2>
+            <div class="wrapper">
+                <div class="box-card shadow uv">
+                    <p class="card-title gray-text">UV index</p>
+                    <h1 class="info-text" id="uv-index"></h1>
+                    <div class="bar-container">
+                        <div class="indicators gray-text">
+                            <p>1</p>
+                            <p>5</p>
+                            <p>10</p>
+                        </div>
+                        <div class="bar uv-bar">
+                            <div class="filled-bar"></div>
+                        </div>
                     </div>
                 </div>
-                <h2 class="title">Today's Highlights</h2>
-                <div class="wrapper">
-                    <div class="box-card shadow uv">
-                        <p class="card-title gray-text">UV index</p>
-                        <h1 class="info-text" id="uv-index"></h1>
-                        <div class="bar-container">
-                            <div class="indicators gray-text">
-                                <p>1</p>
-                                <p>5</p>
-                                <p>10</p>
-                            </div>
-                            <div class="bar uv-bar">
-                                <div class="filled-bar"></div>
-                            </div>
+                <div class="box-card shadow wind">
+                    <p class="card-title gray-text">Wind Status</p>
+                    <h1 id="wind-speed" class="info-text"></h1>
+                    <p class="subinfo-text">km/h</p>
+                    <p id="wind-description"  class="description-text"></p>
+                </div>
+                <div class="box-card shadow sun">
+                    <p class="card-title gray-text">Sunrise & Sunset</p>
+                    <div class="sunrise">
+                        <img src="./images/sunrise.png" alt="sunrise">
+                        <p id="sunrise"></p>
+                    </div>
+                    <div class="sunset">
+                        <img src="./images/sunset.png" alt="sunset">
+                        <p id="sunset"></p>
+                    </div>
+                </div>
+                <div class="box-card shadow humidity">
+                    <p class="card-title gray-text">Humidity</p>
+                    <h1 id="humidity" class="info-text"></h1>
+                    <div class="bar-container">
+                        <div class="indicators gray-text">
+                            <p>0</p>
+                            <p>100</p>
+                        </div>
+                        <div class="bar humidity-bar">
+                            <div class="filled-bar"></div>
                         </div>
                     </div>
-                    <div class="box-card shadow wind">
-                        <p class="card-title gray-text">Wind Status</p>
-                        <h1 id="wind-speed" class="info-text">3</h1>
-                        <p class="subinfo-text">km/h</p>
-                        <p id="wind-description"  class="description-text">Light Breeze</p>
+                </div>
+                <div class="box-card shadow visibility">
+                    <p class="card-title gray-text">Visibility</p>
+                    <h1 id="visibility" class="info-text"></h1>
+                    <p class="subinfo-text">km</p>
+                    <p id="visibility-description" class="description-text"></p>
+                </div>
+                <div class="box-card shadow minmax">
+                    <p class="card-title gray-text temp-title">Min & Max temperature</p>
+                    <div class="max">
+                        <img src="./images/max-temperature.png" alt="max-temperature.png">
+                        <p id="max"></p>
                     </div>
-                    <div class="box-card shadow sun">
-                        <p class="card-title gray-text">Sunrise & Sunset</p>
-                        <div class="sunrise">
-                            <img src="./images/sunrise.png" alt="sunrise">
-                            <p id="sunrise">06:44</p>
-                        </div>
-                        <div class="sunset">
-                            <img src="./images/sunset.png" alt="sunset">
-                            <p id="sunset">21:50</p>
-                        </div>
+                    <div class="min">
+                        <img src="./images/min-temperature.png" alt="min-temperature.png">
+                        <p id="min"></p>
                     </div>
-                    <div class="box-card shadow humidity">
-                        <p class="card-title gray-text">Humidity</p>
-                        <h1 id="humidity" class="info-text">80<sup>%</sup></h1>
-                        <div class="bar-container">
-                            <div class="indicators gray-text">
-                                <p>0</p>
-                                <p>100</p>
-                            </div>
-                            <div class="bar humidity-bar">
-                                <div class="filled-bar"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="box-card shadow visibility">
-                        <p class="card-title gray-text">Visibility</p>
-                        <h1 id="visibility" class="info-text"></h1>
-                        <p class="subinfo-text">km</p>
-                        <p id="visibility-description" class="description-text"></p>
-                    </div>
-                    <div class="box-card shadow minmax">
-                        <p class="card-title gray-text temp-title">Min & Max temperature</p>
-                        <div class="max">
-                            <img src="./images/max-temperature.png" alt="max-temperature.png">
-                            <p id="max">22<sup>°</sup></p>
-                        </div>
-                        <div class="min">
-                            <img src="./images/min-temperature.png" alt="min-temperature.png">
-                            <p id="min">16<sup>°</sup></p>
-                        </div>
                 </div>
                 <div class="box-card shadow map gray-text">
                     <h1>Map</h1>
                 </div>
+            </div>
             </div>
             </div>
         </div>
