@@ -4,11 +4,23 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400&display=swap" rel="stylesheet">
+    
+    <!-- Stylesheet -->
     <link rel="stylesheet" href="style.css">
+
+    
+    <!-- Icons -->
     <script src="https://cdn.lordicon.com/libs/frhvbuzj/lord-icon-2.0.2.js"></script>
+
+
+    <!-- Map -->
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.4.0/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.4.0/mapbox-gl.css' rel='stylesheet' />
+
     <title>Weather app</title>
 </head>
 <body>
@@ -169,13 +181,15 @@
                     </div>
                 </div>
                 <div class="box-card shadow map gray-text">
-                    <h1>Map</h1>
+                    <div id='map' style='width: 100%; height: 100%;'></div>
                 </div>
             </div>
             </div>
             </div>
         </div>
     </div>
+    
+    <script src="tokens.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

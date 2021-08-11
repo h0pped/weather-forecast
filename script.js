@@ -25,50 +25,18 @@ let searchListEl = document.querySelector(".search-list")
 let city,country
 let weatherResponse
 let timestamp
-
 let searchTimeout
-placeInputEl.addEventListener("input",()=>{
-    clearTimeout(searchTimeout)
-    if(!placeInputEl.value){
-        searchResultsEl.style.display = "none"
-    }
-    else{
-        searchTimeout = setTimeout(() => {
-            searchPlaces(placeInputEl.value)
-        }, 500);
-    }
-})
 
-function searchPlaces(place){
-    fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${place}.json?limit=5&access_token=pk.eyJ1IjoiYXdyaWwiLCJhIjoiY2tyOTRnaHkwMGl2YjJwcDhoYmhkdWNxaiJ9.XlGjFeM6ofVunfyStLiFmQ`).then(res=>res.json())
-    .then(data=>{
-        console.log(data);
-        searchResultsEl.style.display = "block"
-        searchListEl.innerHTML = ""
-        if(data.features.length===0){
-            throw "Not found!"
-        }
-            data.features.forEach((el)=>{
-                let place = document.createElement("li")
-                let placename = document.createElement("p")
-                placename.innerHTML = el.place_name
-                let [long,lat] = el.center
-                place.setAttribute("data-lat",lat)
-                place.setAttribute("data-long",long)
-                place.appendChild(placename)
-                searchListEl.appendChild(place)
-            })
-    }).catch(err=>{
-        searchResultsEl.style.display = "block"
-        searchListEl.innerHTML = ""
-        let place = document.createElement("li")
-        let notFound = document.createElement("p")
-        place.appendChild(notFound)
-        notFound.innerHTML = "No places were found!"
-        notFound.classList.add("disabled")
-        searchListEl.appendChild(notFound)
-    })
-}
+let WEATHER_TOKEN = config.WEATHER_TOKEN
+let PLACES_TOKEN = config.PLACES_TOKEN
+let MAP_TOKEN = config.MAP_TOKEN
+mapboxgl.accessToken = MAP_TOKEN;
+let map= new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/mapbox/streets-v11',
+    // center: [long, lat], // starting position [lng, lat]
+    zoom: 7 // starting zoom
+});
 
 const DAYS = {
     0: "Sunday",
@@ -109,23 +77,66 @@ const VISIBILITY = {
     5:"Normal Visibility",
     10: "Good visibility"
 }
-function getPosition(lat,long){
-    fetch(`https://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${long}&limit=1&appid=e6d804f5e9320c6522624536e3ac2b78`).then(res=>res.json())
+
+
+placeInputEl.addEventListener("input",()=>{
+    clearTimeout(searchTimeout)
+    if(!placeInputEl.value){
+        searchResultsEl.style.display = "none"
+    }
+    else{
+        searchTimeout = setTimeout(() => {
+            searchPlaces(placeInputEl.value)
+        }, 500);
+    }
+})
+
+function searchPlaces(place){
+    fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${place}.json?limit=5&access_token=${PLACES_TOKEN}`).then(res=>res.json())
     .then(data=>{
-        console.log(data);
+        searchResultsEl.style.display = "block"
+        searchListEl.innerHTML = ""
+        if(data.features.length===0){
+            throw "Not found!"
+        }
+            data.features.forEach((el)=>{
+                let place = document.createElement("li")
+                let placename = document.createElement("p")
+                placename.innerHTML = el.place_name
+                let [long,lat] = el.center
+                place.setAttribute("data-lat",lat)
+                place.setAttribute("data-long",long)
+                place.appendChild(placename)
+                searchListEl.appendChild(place)
+            })
+    }).catch(err=>{
+        searchResultsEl.style.display = "block"
+        searchListEl.innerHTML = ""
+        let place = document.createElement("li")
+        let notFound = document.createElement("p")
+        place.appendChild(notFound)
+        notFound.innerHTML = "No places were found!"
+        notFound.classList.add("disabled")
+        searchListEl.appendChild(notFound)
+    })
+}
+
+function getPosition(lat,long){
+    fetch(`https://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${long}&limit=1&appid=${WEATHER_TOKEN}`).then(res=>res.json())
+    .then(data=>{
         country = data[0].country;
         city = data[0].name
         getForecast(lat,long)
     })
 }
 function getForecast(lat,long){
-    fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${long}&exclude=hourly&appid=e6d804f5e9320c6522624536e3ac2b78`).then(res=>res.json())
+    fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${long}&exclude=hourly&appid=${WEATHER_TOKEN}`).then(res=>res.json())
     .then(data=>{
-        console.log(data);
         weatherResponse = data;
         updateUI()
     })
 }
+
 navigator.geolocation.getCurrentPosition((res)=>{
     let {latitude:lat,longitude:long} = res.coords 
     getPosition(lat,long)
@@ -166,6 +177,9 @@ function updateUI(){
     maxTempEl.innerHTML = `${getCelsius(weatherResponse.daily[0].temp.max)}<sup>°</sup>` 
     minTempEl.innerHTML = `${getCelsius(weatherResponse.daily[0].temp.min)}<sup>°</sup>` 
     mainInfoEl.innerHTML = current.weather[0].description.slice(0,1).toUpperCase()+current.weather[0].description.slice(1)
+    map.flyTo({
+        center: [weatherResponse.lon,weatherResponse.lat]
+    }) 
     document.querySelector(".container").classList.remove("loading")
 }
 
@@ -203,3 +217,5 @@ searchListEl.addEventListener("click",(e)=>{
     }
     
 })
+
+// map: pk.eyJ1IjoiYXdyaWwiLCJhIjoiY2tyOTRnaHkwMGl2YjJwcDhoYmhkdWNxaiJ9.XlGjFeM6ofVunfyStLiFmQ
