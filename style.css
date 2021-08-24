@@ -461,6 +461,11 @@ lord-icon {
   border-bottom: 0;
 }
 
+@media (max-height: 99vh) {
+  .loader-div {
+    display: none;
+  }
+}
 @media (max-width: 1295px) {
   .container {
     flex-direction: column;
