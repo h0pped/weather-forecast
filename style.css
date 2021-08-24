@@ -22,7 +22,7 @@ body {
 
 .loader-div {
   position: absolute;
-  height: 100vh;
+  height: 100%;
   width: 100%;
   z-index: 999;
   display: flex;
@@ -46,7 +46,7 @@ body {
 .top-wrap {
   position: absolute;
   background: rgb(15, 121, 242);
-  height: 50vh;
+  height: 50%;
   width: 100%;
   top: 0;
   z-index: 999;
@@ -75,7 +75,7 @@ body {
 .bottom-wrap {
   position: absolute;
   background: rgb(15, 121, 242);
-  height: 50vh;
+  height: 50%;
   width: 100%;
   bottom: 0;
   z-index: 999;
