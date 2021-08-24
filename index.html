@@ -24,6 +24,16 @@
     <title>Weather app</title>
 </head>
 <body>
+    <div class="loader-div active">
+        <div class="top-wrap"></div>
+        <div class="bottom-wrap"></div>
+        <div class="loader-content">
+            <!-- https://loading.io/css/ -->
+                <div class="overlay__inner">
+                    <div class="overlay__content"><span class="spinner"></span></div>
+                </div>
+        </div>
+    </div>
     <div class="container loading">
         <div class="left-container shadow">
             <lord-icon class="loader"
@@ -188,7 +198,6 @@
             </div>
         </div>
     </div>
-    
     <script src="tokens.js"></script>
     <script src="script.js"></script>
 </body>
