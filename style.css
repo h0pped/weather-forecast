@@ -52,13 +52,18 @@ body {
   z-index: 999;
   transition: top 0.5s ease 0s;
 }
+.loader-div h2 {
+  position: absolute;
+}
 .loader-div.closed {
   animation: close-anim 0.5s forwards;
 }
 .loader-div.closed .spinner {
   opacity: 0;
 }
-
+.loader-div.closed h2 {
+  opacity: 0;
+}
 @keyframes close-anim {
   99% {
     visibility: visible;
@@ -435,7 +440,7 @@ lord-icon {
   border-radius: 0px 0px 15px 15px;
   --shadow: 0px 5px 5px 0px rgba(41, 41, 41, 0.3);
   display: none;
-  z-index: 1000;
+  z-index: 888;
 }
 .search-list {
   list-style: none;
@@ -538,8 +543,6 @@ lord-icon {
   top: 0;
   width: 100%;
   height: 100%;
-  position: fixed;
-  background: #222;
 }
 
 .overlay__inner {
