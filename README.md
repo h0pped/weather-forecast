@@ -1,7 +1,7 @@
 # WEATHER FORECAST PET PROJECT
 **Weather forecaster using HTML&CSS&Pure JS**
 
-**[Test it by your own!](https://brave-liskov-85edab.netlify.app/)**
+**[Test it by your own! (Live Demo)](https://awril-weather-85edab.netlify.app/)**
 
 ![Image](https://raw.githubusercontent.com/h0pped/weather-forecast/main/images/for-md/weather.png)
 
