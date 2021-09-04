@@ -542,6 +542,9 @@ lord-icon {
   .card {
     width: 100%;
   }
+  .info-container {
+    padding-bottom: 1rem;
+  }
 }
 .overlay {
   left: 0;
