@@ -146,6 +146,10 @@ function getPosition(lat, long) {
       country = data[0].country;
       city = data[0].name;
       getForecast(lat, long);
+    })
+    .catch(() => {
+      loaderEl.classList.remove("active");
+      loaderEl.classList.add("closed");
     });
 }
 function getForecast(lat, long) {
@@ -156,18 +160,34 @@ function getForecast(lat, long) {
     .then((data) => {
       weatherResponse = data;
       updateUI();
+    })
+    .catch(() => {
+      loaderEl.classList.remove("active");
+      loaderEl.classList.add("closed");
     });
 }
 
-navigator.geolocation.getCurrentPosition(
-  (res) => {
-    let { latitude: lat, longitude: long } = res.coords;
-    getPosition(lat, long);
-  },
-  (err) => {
-    console.log(err);
-  }
-);
+let coords = {
+  lat: localStorage.getItem("lat"),
+  long: localStorage.getItem("long"),
+};
+if (coords.lat && coords.long) {
+  getPosition(coords.lat, coords.long);
+} else {
+  navigator.geolocation.getCurrentPosition(
+    (res) => {
+      let { latitude: lat, longitude: long } = res.coords;
+      localStorage.setItem("lat", lat);
+      localStorage.setItem("long", long);
+      getPosition(lat, long);
+    },
+    (err) => {
+      console.log(err);
+      loaderEl.classList.remove("active");
+      loaderEl.classList.add("closed");
+    }
+  );
+}
 
 function updateUI() {
   let current = weatherResponse.current;
@@ -277,5 +297,3 @@ searchListEl.addEventListener("click", (e) => {
     getPosition(clicked.dataset.lat, clicked.dataset.long);
   }
 });
-
-// map: pk.eyJ1IjoiYXdyaWwiLCJhIjoiY2tyOTRnaHkwMGl2YjJwcDhoYmhkdWNxaiJ9.XlGjFeM6ofVunfyStLiFmQ
